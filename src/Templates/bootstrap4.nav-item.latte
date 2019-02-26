@@ -1,0 +1,12 @@
+<li n:snippet="ItemsPerPageSnippet" class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="itemsPerPageNavItemDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="fa fa-align-justify"></span>
+    </a>
+    <div class="dropdown-menu" aria-labelledby="itemsPerPageNavItemDropdown">
+        {foreach $availableValues as $key => $availableValue}
+            <a n:href="change!, $key" n:class="'dropdown-item', $value === $key ? 'active', $useAjax ? 'ajax'">
+                {$availableValue}
+            </a>
+        {/foreach}
+    </div>
+</li>
