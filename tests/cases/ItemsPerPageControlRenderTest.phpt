@@ -14,6 +14,7 @@ require __DIR__ . '/../bootstrap.testbench.php';
 
 /**
  * @testCase
+ * @skip
  */
 class ItemsPerPageControlRenderTest extends TestCase
 {
