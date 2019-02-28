@@ -1,5 +1,13 @@
 # Items per page
 
+-----
+
+[![Build Status](https://travis-ci.org/surda/items-per-page.svg?branch=master)](https://travis-ci.org/surda/items-per-page)
+[![Licence](https://img.shields.io/packagist/l/surda/items-per-page.svg?style=flat-square)](https://packagist.org/packages/surda/items-per-page)
+[![Latest stable](https://img.shields.io/packagist/v/surda/items-per-page.svg?style=flat-square)](https://packagist.org/packages/surda/items-per-page)
+[![PHPStan](https://img.shields.io/badge/PHPStan-enabled-brightgreen.svg?style=flat)](https://github.com/phpstan/phpstan)
+
+
 ## Installation
 
 The recommended way to is via Composer:
