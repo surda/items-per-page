@@ -2,7 +2,7 @@
 
 namespace Surda\ItemsPerPage;
 
-use Nette\Localization\ITranslator;
+use Surda\ComponentHelpers\Traits\Themeable;
 use Surda\ItemsPerPage\Exception\InvalidArgumentException;
 use Surda\ItemsPerPage\Exception\ValueNotFoundException;
 use Surda\ItemsPerPage\Storage\IStorage;
@@ -10,6 +10,8 @@ use Nette\Application\UI;
 
 class ItemsPerPageControl extends UI\Control
 {
+    use Themeable;
+
     CONST VALUE_KEY_NAME = 'ppi';
 
     /** @var IStorage */
@@ -20,9 +22,6 @@ class ItemsPerPageControl extends UI\Control
 
     /** @var int */
     protected $defaultValue;
-
-    /** @var array */
-    protected $templates = [];
 
     /** @var bool */
     protected $useAjax = TRUE;
@@ -147,41 +146,6 @@ class ItemsPerPageControl extends UI\Control
     {
         return $this->availableValues;
     }
-
-    /**
-     * @param string $template
-     */
-    public function setTemplate(string $template): void
-    {
-        $this->setTemplateByType('default', $template);
-    }
-
-    /**
-     * @param string $type
-     * @param string $templateFile
-     */
-    public function setTemplateByType(string $type, string $templateFile): void
-    {
-        if (!file_exists($templateFile)) {
-            throw new InvalidArgumentException(sprintf("Template file '%s' does not exist.", $templateFile));
-        }
-
-        $this->templates[$type] = $templateFile;
-    }
-
-    /**
-     * @param string $type
-     * @return string
-     */
-    public function getTemplateByType(string $type): string
-    {
-        if (array_key_exists($type, $this->templates)) {
-            return $this->templates[$type];
-        }
-
-        throw new InvalidArgumentException(sprintf("Template file of type '%s' is not registered.", $type));
-    }
-
 
     public function enableAjax(): void
     {

@@ -20,7 +20,8 @@
         "php": ">=7.1",
         "nette/di": "~2.4",
         "nette/application": "~2.4",
-        "latte/latte": "~2.4.0"
+        "latte/latte": "~2.4.0",
+        "surda/component-helpers": "^1.0"
     },
     "require-dev": {
         "nette/tester": "^2.0",
