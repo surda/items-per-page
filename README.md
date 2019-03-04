@@ -31,8 +31,10 @@ itemsPerPage:
     listOfValues: [20, 50, 100]
     defaultValue: 20
     useAjax: TRUE
-    templateFile: bootstrap4.latte
     storage: Surda\ItemsPerPage\Storage\Session
+    templates:
+        default: bootstrap4.dropdown.latte
+        nav-item: bootstrap4.nav-item.latte
 ```
 
 ## Usage
