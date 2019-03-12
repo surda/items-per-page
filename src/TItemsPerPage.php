@@ -2,7 +2,7 @@
 
 namespace Surda\ItemsPerPage;
 
-trait ItemsPerPage
+trait TItemsPerPage
 {
     /** @var ItemsPerPageFactory */
     private $itemsPerPageFactory;

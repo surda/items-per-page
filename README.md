@@ -42,11 +42,12 @@ itemsPerPage:
 Presenter
 
 ```php
+use Surda\ItemsPerPage\TItemsPerPage;
 use Surda\ItemsPerPage\ItemsPerPageControl;
 
 class ProductPresenter extends Nette\Application\UI\Presenter
 {
-    use ItemsPerPage;
+    use TItemsPerPage;
 
     public function actionDefault(): void
     {
