@@ -78,7 +78,7 @@ class ProductPresenter extends Nette\Application\UI\Presenter
     /**
      * @param ItemsPerPageFactory $itemsPerPageFactory
      */
-    public function injectItemsPerPage(ItemsPerPageFactory $itemsPerPageFactory): void
+    public function injectItemsPerPageFactory(ItemsPerPageFactory $itemsPerPageFactory): void
     {
         $this->itemsPerPageFactory = $itemsPerPageFactory;
     }
