@@ -121,12 +121,6 @@ class ItemsPerPageControl extends UI\Control
      */
     public function setAvailableValues($availableValues): void
     {
-        if ($availableValues instanceof \Traversable) {
-            $availableValues = iterator_to_array($availableValues);
-        } elseif (!is_array($availableValues)) {
-            throw new InvalidArgumentException("Argument 'values' must be array or Traversable.");
-        }
-
         $values = array();
         foreach ($availableValues as $key => $value) {
             if (is_int($value)) {
