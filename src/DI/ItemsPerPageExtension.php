@@ -25,6 +25,9 @@ class ItemsPerPageExtension extends CompilerExtension
     /** @var array */
     private $templates = [
         'default' => __DIR__ . '/../Templates/bootstrap4.dropdown.latte',
+        'dropdown-sm' => __DIR__ . '/../Templates/bootstrap4.dropdown.sm.latte',
+        'dropdown-danger' => __DIR__ . '/../Templates/bootstrap4.dropdown.danger.latte',
+        'dropdown-sm-danger' => __DIR__ . '/../Templates/bootstrap4.dropdown.sm.danger.latte',
         'nav-item' => __DIR__ . '/../Templates/bootstrap4.nav-item.latte',
     ];
 
