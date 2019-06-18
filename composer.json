@@ -21,6 +21,7 @@
         "nette/di": "~2.4",
         "nette/application": "~2.4",
         "latte/latte": "~2.4.0",
+        "surda/key-value-storage": "^1.0",
         "surda/component-helpers": "^1.0"
     },
     "require-dev": {
