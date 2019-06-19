@@ -30,8 +30,9 @@ Default
 itemsPerPage:
     listOfValues: [20, 50, 100]
     defaultValue: 20
+    storageKeyName: ipp
     useAjax: TRUE
-    storage: Surda\ItemsPerPage\Storage\Session
+    storage: Surda\KeyValueStorage\Session
     templates:
         default: bootstrap4.dropdown.latte
         nav-item: bootstrap4.nav-item.latte

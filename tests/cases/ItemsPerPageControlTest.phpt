@@ -5,32 +5,36 @@ namespace Tests\Surda\ItemsPerPage;
 use Nette\DI\Container;
 use Surda\ItemsPerPage\ItemsPerPageControl;
 use Surda\ItemsPerPage\ItemsPerPageFactory;
-use Surda\ItemsPerPage\Storage\NullStorage;
-use Testbench\TComponent;
+use Surda\KeyValueStore\ArrayStore;
 use Tester\Assert;
 use Tester\TestCase;
 
 require __DIR__ . '/../bootstrap.php';
-require __DIR__ . '/../bootstrap.testbench.php';
 
 /**
  * @testCase
  */
 class ItemsPerPageControlTest extends TestCase
 {
-    use TComponent;
-
     public function testControl()
     {
+        $config = [
+            'itemsPerPage' => [
+                'storage' => ArrayStore::class
+            ]
+        ];
+
         /** @var Container $container */
         $container = (new ContainerFactory())->create([
             'itemsPerPage' => [
-                'storage' => NullStorage::class
+                'storage' => ArrayStore::class
             ]
         ],1);
 
+//        $container = $this->createContainer($config);
+
         /** @var ItemsPerPageFactory $factory */
-        $factory = $container->getService('itemsPerPage.itemsPerPage');
+        $factory = $container->getService('itemsPerPage.factory');
 
         /** @var ItemsPerPageControl $control */
         $control = $factory->create();

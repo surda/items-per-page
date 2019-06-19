@@ -2,19 +2,18 @@
 
 namespace Surda\ItemsPerPage;
 
-use Surda\ComponentHelpers\Traits\Themeable;
+use Nette\Application\UI\ITemplate;
 use Surda\ItemsPerPage\Exception\InvalidArgumentException;
-use Surda\ItemsPerPage\Exception\ValueNotFoundException;
-use Surda\ItemsPerPage\Storage\IStorage;
+use Surda\KeyValueStore\Exception\NoSuchKeyException;
+use Surda\KeyValueStore\IKeyValueStore;
+use Surda\UI\Control\ThemeableControls;
 use Nette\Application\UI;
 
 class ItemsPerPageControl extends UI\Control
 {
-    use Themeable;
+    use ThemeableControls;
 
-    CONST VALUE_KEY_NAME = 'ppi';
-
-    /** @var IStorage */
+    /** @var IKeyValueStore */
     protected $storage;
 
     /** @var array */
@@ -26,16 +25,17 @@ class ItemsPerPageControl extends UI\Control
     /** @var bool */
     protected $useAjax = TRUE;
 
+    /** @var string */
+    protected $storageKeyName;
+
     /** @var array */
     public $onChange;
 
     /**
-     * @param IStorage $storage
+     * @param IKeyValueStore $storage
      */
-    public function __construct(IStorage $storage)
+    public function __construct(IKeyValueStore $storage)
     {
-        parent::__construct();
-
         $this->storage = $storage;
     }
 
@@ -44,7 +44,7 @@ class ItemsPerPageControl extends UI\Control
      */
     public function render(string $templateType = 'default'): void
     {
-        /** @var \Nette\Application\UI\ITemplate $template */
+        /** @var ITemplate $template */
         $template = $this->template;
         $template->setFile($this->getTemplateByType($templateType));
 
@@ -75,9 +75,9 @@ class ItemsPerPageControl extends UI\Control
     public function getValue(): int
     {
         try {
-            $value = (int)$this->storage->read(self::VALUE_KEY_NAME);
+            $value = (int)$this->storage->read($this->getStorageKeyName());
         }
-        catch (ValueNotFoundException $e) {
+        catch (NoSuchKeyException $e) {
             return $this->defaultValue;
         }
 
@@ -99,7 +99,7 @@ class ItemsPerPageControl extends UI\Control
             $value = $this->defaultValue;
         }
 
-        $this->storage->write(self::VALUE_KEY_NAME, (string)$value);
+        $this->storage->write($this->getStorageKeyName(), (string)$value);
     }
 
     /**
@@ -116,12 +116,12 @@ class ItemsPerPageControl extends UI\Control
     }
 
     /**
-     * @param array|\Traversable $availableValues
+     * @param array $availableValues
      * @throws InvalidArgumentException
      */
-    public function setAvailableValues($availableValues): void
+    public function setAvailableValues(array $availableValues): void
     {
-        $values = array();
+        $values = [];
         foreach ($availableValues as $key => $value) {
             if (is_int($value)) {
                 $values[$value] = $value;
@@ -150,6 +150,23 @@ class ItemsPerPageControl extends UI\Control
     {
         $this->useAjax = FALSE;
     }
+
+    /**
+     * @return string
+     */
+    public function getStorageKeyName(): string
+    {
+        return $this->storageKeyName;
+    }
+
+    /**
+     * @param string $storageKeyName
+     */
+    public function setStorageKeyName(string $storageKeyName): void
+    {
+        $this->storageKeyName = $storageKeyName;
+    }
+
 
     /**
      * @param int $value

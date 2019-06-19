@@ -3,7 +3,7 @@
 namespace Tests\Surda\ItemsPerPage;
 
 use Surda\ItemsPerPage\ItemsPerPageFactory;
-use Surda\ItemsPerPage\Storage\NullStorage;
+use Surda\KeyValueStore\ArrayStore;
 use Nette\DI\Container;
 use Tester\Assert;
 use Tester\TestCase;
@@ -20,12 +20,12 @@ class ItemsPerPageExtensionTest extends TestCase
         /** @var Container $container */
         $container = (new ContainerFactory())->create([
             'itemsPerPage' => [
-                'storage' => NullStorage::class
+                'storage' => ArrayStore::class
             ]
         ]);
 
         /** @var ItemsPerPageFactory $factory */
-        $factory = $container->getService('itemsPerPage.itemsPerPage');
+        $factory = $container->getService('itemsPerPage.factory');
         Assert::true($factory instanceof ItemsPerPageFactory);
 
         /** @var ItemsPerPageFactory $factory */
