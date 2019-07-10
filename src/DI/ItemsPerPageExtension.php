@@ -6,7 +6,7 @@ use Nette\DI\CompilerExtension;
 use Nette\Schema\Expect;
 use Nette\Schema\Schema;
 use Surda\ItemsPerPage\ItemsPerPageFactory;
-use Surda\KeyValueStore\SessionStore;
+use Surda\KeyValueStorage\SessionStorage;
 
 class ItemsPerPageExtension extends CompilerExtension
 {
@@ -42,7 +42,7 @@ class ItemsPerPageExtension extends CompilerExtension
 
         $storage = $builder->addDefinition($this->prefix('storage'));
         if ($config->storage === NULL) {
-            $storage->setFactory(SessionStore::class, ['item-per-page']);
+            $storage->setFactory(SessionStorage::class, ['item-per-page']);
         } else {
             $storage->setFactory($config->storage);
         }

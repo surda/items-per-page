@@ -4,8 +4,8 @@ namespace Surda\ItemsPerPage;
 
 use Nette\Application\UI\ITemplate;
 use Surda\ItemsPerPage\Exception\InvalidArgumentException;
-use Surda\KeyValueStore\Exception\NoSuchKeyException;
-use Surda\KeyValueStore\IKeyValueStore;
+use Surda\KeyValueStorage\Exception\NoSuchKeyException;
+use Surda\KeyValueStorage\IKeyValueStorage;
 use Surda\UI\Control\ThemeableControls;
 use Nette\Application\UI;
 
@@ -13,7 +13,7 @@ class ItemsPerPageControl extends UI\Control
 {
     use ThemeableControls;
 
-    /** @var IKeyValueStore */
+    /** @var IKeyValueStorage */
     protected $storage;
 
     /** @var array */
@@ -32,9 +32,9 @@ class ItemsPerPageControl extends UI\Control
     public $onChange;
 
     /**
-     * @param IKeyValueStore $storage
+     * @param IKeyValueStorage $storage
      */
-    public function __construct(IKeyValueStore $storage)
+    public function __construct(IKeyValueStorage $storage)
     {
         $this->storage = $storage;
     }

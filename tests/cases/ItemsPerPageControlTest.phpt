@@ -5,7 +5,7 @@ namespace Tests\Surda\ItemsPerPage;
 use Nette\DI\Container;
 use Surda\ItemsPerPage\ItemsPerPageControl;
 use Surda\ItemsPerPage\ItemsPerPageFactory;
-use Surda\KeyValueStore\ArrayStore;
+use Surda\KeyValueStorage\ArrayStorage;
 use Tester\Assert;
 use Tester\TestCase;
 
@@ -20,14 +20,14 @@ class ItemsPerPageControlTest extends TestCase
     {
         $config = [
             'itemsPerPage' => [
-                'storage' => ArrayStore::class
+                'storage' => ArrayStorage::class
             ]
         ];
 
         /** @var Container $container */
         $container = (new ContainerFactory())->create([
             'itemsPerPage' => [
-                'storage' => ArrayStore::class
+                'storage' => ArrayStorage::class
             ]
         ],1);
 
