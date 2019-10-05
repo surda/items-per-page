@@ -7,7 +7,11 @@ use Nette\Schema\Expect;
 use Nette\Schema\Schema;
 use Surda\ItemsPerPage\ItemsPerPageFactory;
 use Surda\KeyValueStorage\SessionStorage;
+use stdClass;
 
+/**
+ * @property-read stdClass $config
+ */
 class ItemsPerPageExtension extends CompilerExtension
 {
     /** @var array */
