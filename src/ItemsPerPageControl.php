@@ -16,7 +16,7 @@ class ItemsPerPageControl extends UI\Control
     /** @var IKeyValueStorage */
     protected $storage;
 
-    /** @var array */
+    /** @var array<mixed> */
     protected $availableValues = [];
 
     /** @var int */
@@ -28,7 +28,7 @@ class ItemsPerPageControl extends UI\Control
     /** @var string */
     protected $storageKeyName;
 
-    /** @var array */
+    /** @var array<mixed> */
     public $onChange;
 
     /**
@@ -116,7 +116,7 @@ class ItemsPerPageControl extends UI\Control
     }
 
     /**
-     * @param array $availableValues
+     * @param array<mixed> $availableValues
      * @throws InvalidArgumentException
      */
     public function setAvailableValues(array $availableValues): void
@@ -134,7 +134,7 @@ class ItemsPerPageControl extends UI\Control
     }
 
     /**
-     * @return array
+     * @return array<mixed>
      */
     public function getAvailableValues(): array
     {

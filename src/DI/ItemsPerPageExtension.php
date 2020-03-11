@@ -14,10 +14,10 @@ use stdClass;
  */
 class ItemsPerPageExtension extends CompilerExtension
 {
-    /** @var array */
+    /** @var array<int> */
     private $values = [20, 50, 100];
 
-    /** @var array */
+    /** @var array<mixed> */
     private $templates = [
         'default' => __DIR__ . '/../Templates/bootstrap4.dropdown.latte',
         'dropdown-sm' => __DIR__ . '/../Templates/bootstrap4.dropdown.sm.latte',
