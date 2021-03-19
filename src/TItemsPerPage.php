@@ -2,6 +2,9 @@
 
 namespace Surda\ItemsPerPage;
 
+/**
+ * @deprecated
+ */
 trait TItemsPerPage
 {
     /** @var ItemsPerPageFactory */

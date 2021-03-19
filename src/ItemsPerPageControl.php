@@ -2,21 +2,23 @@
 
 namespace Surda\ItemsPerPage;
 
-use Nette\Application\UI\ITemplate;
+use Nette\Application\UI\Template;
 use Surda\ItemsPerPage\Exception\InvalidArgumentException;
-use Surda\KeyValueStorage\Exception\NoSuchKeyException;
-use Surda\KeyValueStorage\IKeyValueStorage;
+use Surda\KeyValueStorage\KeyValueStorage;
 use Surda\UI\Control\ThemeableControls;
 use Nette\Application\UI;
 
+/**
+ * @method onChange(ItemsPerPageControl $param, int $value)
+ */
 class ItemsPerPageControl extends UI\Control
 {
     use ThemeableControls;
 
-    /** @var IKeyValueStorage */
+    /** @var KeyValueStorage */
     protected $storage;
 
-    /** @var array<mixed> */
+    /** @var array<int, int> */
     protected $availableValues = [];
 
     /** @var int */
@@ -32,9 +34,9 @@ class ItemsPerPageControl extends UI\Control
     public $onChange;
 
     /**
-     * @param IKeyValueStorage $storage
+     * @param KeyValueStorage $storage
      */
-    public function __construct(IKeyValueStorage $storage)
+    public function __construct(KeyValueStorage $storage)
     {
         $this->storage = $storage;
     }
@@ -44,7 +46,7 @@ class ItemsPerPageControl extends UI\Control
      */
     public function render(string $templateType = 'default'): void
     {
-        /** @var ITemplate $template */
+        /** @var Template $template */
         $template = $this->template;
         $template->setFile($this->getTemplateByType($templateType));
 
@@ -74,12 +76,7 @@ class ItemsPerPageControl extends UI\Control
      */
     public function getValue(): int
     {
-        try {
-            $value = (int)$this->storage->read($this->getStorageKeyName());
-        }
-        catch (NoSuchKeyException $e) {
-            return $this->defaultValue;
-        }
+        $value = (int)$this->storage->read($this->getStorageKeyName(), $this->defaultValue);
 
         if (!$this->isValidValue($value)) {
             return $this->defaultValue;
