@@ -3,8 +3,10 @@
 namespace Surda\ItemsPerPage\DI;
 
 use Nette\DI\CompilerExtension;
+use Nette\DI\Definitions\Statement;
 use Nette\Schema\Expect;
 use Nette\Schema\Schema;
+use Surda\ItemsPerPage\ItemsPerPageControl;
 use Surda\ItemsPerPage\ItemsPerPageFactory;
 use Surda\KeyValueStorage\SessionStorage;
 use stdClass;
@@ -14,10 +16,10 @@ use stdClass;
  */
 class ItemsPerPageExtension extends CompilerExtension
 {
-    /** @var array<int> */
+    /** @var array<int, int> */
     private $values = [20, 50, 100];
 
-    /** @var array<mixed> */
+    /** @var array<string, string> */
     private $templates = [
         'default' => __DIR__ . '/../Templates/bootstrap4.dropdown.latte',
         'dropdown-sm' => __DIR__ . '/../Templates/bootstrap4.dropdown.sm.latte',
@@ -35,7 +37,7 @@ class ItemsPerPageExtension extends CompilerExtension
             'useAjax' => Expect::bool(TRUE),
             'template' => Expect::string()->nullable()->default(NULL),
             'templates' => Expect::array()->default([]),
-            'storage' => Expect::string()->nullable()->default(NULL),
+            'storage' => Expect::anyOf(Expect::string(), Expect::type(Statement::class))->nullable(),
         ]);
     }
 
@@ -46,14 +48,16 @@ class ItemsPerPageExtension extends CompilerExtension
 
         $storage = $builder->addDefinition($this->prefix('storage'));
         if ($config->storage === NULL) {
-            $storage->setFactory(SessionStorage::class, ['item-per-page']);
+            $storage->setFactory(SessionStorage::class, [$config->storageKeyName]);
         } else {
             $storage->setFactory($config->storage);
         }
+
         $itemsPerPageFactory = $builder->addFactoryDefinition($this->prefix('factory'))
             ->setImplement(ItemsPerPageFactory::class);
 
         $itemsPerPageDefinition = $itemsPerPageFactory->getResultDefinition();
+        $itemsPerPageDefinition->setFactory(ItemsPerPageControl::class, [$storage]);
 
         $itemsPerPageDefinition->addSetup('setAvailableValues', [$config->values === [] ? $this->values : $config->values]);
         $itemsPerPageDefinition->addSetup('setDefaultValue', [$config->defaultValue]);
